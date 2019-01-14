@@ -1,0 +1,25 @@
+{% extends "index.html.twig" %}
+
+{% block section %}
+<table class="table table-hover table-condensed listejeux"><thead>
+<tr><th>Nom</th><th>Catégorie</th><th>Thème</th><th>Auteur</th><th>Editeur</th><th>Temps de jeu</th><th>Nb de joueurs min</th><th>Nb de joueurs max</th></tr>
+</thead><tbody>
+{% if jeux|length %}
+    {% if action == "ajouter" %}
+        {% for jeu in jeux %}
+            <tr onclick="window.location='?action=admin-ajout-description&idjeu={{jeu.idJeu}}';"><td>{{jeu.nomJeu}}</td><td>{{jeu.categorie}}</td><td>{{jeu.theme}}</td><td>{{jeu.auteur}}</td><td>{{jeu.editeur}}</td><td>{{jeu.dureePartie}}</td><td>{{jeu.nbJoueursMin}}</td><td>{{jeu.nbJoueursMax}}</td></tr>
+        {% endfor %}
+    {% elseif action == "modifier" %}
+        {% for jeu in jeux %}
+            <tr onclick="window.location='?action=admin-modif-description&idjeu={{jeu.idJeu}}';"><td>{{jeu.nomJeu}}</td><td>{{jeu.categorie}}</td><td>{{jeu.theme}}</td><td>{{jeu.auteur}}</td><td>{{jeu.editeur}}</td><td>{{jeu.dureePartie}}</td><td>{{jeu.nbJoueursMin}}</td><td>{{jeu.nbJoueursMax}}</td></tr>
+        {% endfor %}
+    {% elseif action == "supprimer" %}
+        {% for jeu in jeux %}
+            <tr onclick="window.location='?action=admin-suppr-description&idjeu={{jeu.idJeu}}';"><td>{{jeu.nomJeu}}</td><td>{{jeu.categorie}}</td><td>{{jeu.theme}}</td><td>{{jeu.auteur}}</td><td>{{jeu.editeur}}</td><td>{{jeu.dureePartie}}</td><td>{{jeu.nbJoueursMin}}</td><td>{{jeu.nbJoueursMax}}</td></tr>
+        {% endfor %}
+    {% endif %}
+{% else %}
+    <p>Il n'y a pas de jeu à valider pour le moment.</p>
+{% endif %}
+</tbody></table>
+{% endblock %}

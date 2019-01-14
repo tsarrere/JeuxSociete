@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Mini projet développement - MMI Castres</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"> 
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="design.css"> 
+</head>
+
+<body>
+  <nav class="navbar fixed-top navbar-toggleable-sm navbar-light bg-faded">
+		<div class="navbar-header">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="?">
+          Jeux de société
+      </a>
+		</div>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"> <a class="nav-link" href="?action=liste"><span class="fas fa-list-ul nav-icon"></span>Liste des jeux</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="?action=recher"><span class="fas fa-search nav-icon"></span>Rechercher</a> </li>
+  {% if acces == "oui"%}
+        <li class="nav-item"> <a class="nav-link" href="?action=mesjeux"><span class="fas fa-dice nav-icon"></span>Mes jeux</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="?action=ajout"><span class="fas fa-plus nav-icon"></span>Ajouter</a> </li>
+        {% if admin %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="fas fa-cogs nav-icon"></span>Administration
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-header">Valider les demandes...</a>
+              <a class="dropdown-item" href="?action=admin-ajout">... d'ajout</a>
+              <a class="dropdown-item" href="?action=admin-modif">... de modification</a>
+              <a class="dropdown-item" href="?action=admin-suppr">... de suppression</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="?action=admin-cat">Gérer les catégories</a>
+              <a class="dropdown-item" href="?action=admin-uti">Gérer les utilisateurs</a>
+            </div>
+          </li>
+        {% endif %}
+        <li class="nav-item"> <a class="nav-link" href="?action=logout"><span class="fas fa-sign-out-alt nav-icon"></span>Deconnexion</a> </li>        
+	{% else %}
+        <li class="nav-item"> <a class="nav-link" href="?action=login"><span class="fas fa-sign-in-alt nav-icon"></span>Connexion</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="?action=register"><span class="fas fa-file-signature nav-icon"></span>S'enregistrer</a> </li> 
+  {% endif %}
+      </ul>
+    </div>
+	</nav>
+  <div class="container">
+  {% block section %}
+  
+		{{message}}	
+	{% endblock %}
+  </div>	
+
+  <footer class="text-center">Copyright &copy; <a href="index.php">MMI Castres</a> - Tous droits réservés</footer>
+</body>
+</html>

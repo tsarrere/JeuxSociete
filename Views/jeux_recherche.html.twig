@@ -1,0 +1,63 @@
+
+{% extends "index.html.twig" %}
+
+{% block section %}
+   <form id="recherche" method="post" action="index.php" class="well">
+   <fieldset class="form-group"> <legend>Rechercher un jeu</legend>
+    <div class="form-group">
+        <div class="col-sm-9 col-sm-offset-3">
+            <span class="help-block">Vous pouvez utiliser un seul ou plusieurs champs à la fois</span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="nomjeu" class="col-sm-2 control-label">Nom</label>
+        <div class="col-sm-10">
+            <input type="text" id="nomjeu" name="nomjeu" class="form-control" placeholder="Nom du jeu..."/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="idcategorie" class="col-sm-2 control-label">Choix de la catégorie</label>
+        <div class="col-sm-10">
+            <select class="custom-select" name="idcategorie" title="Choisir une des catégories suivantes...">
+                <option disabled selected value="0"> -- Sélectionnez une catégorie -- </option>
+                {% for cat in categories %}
+                <option value="{{ cat.idcategorie }}"{% if option.selected %} selected{% endif %}>{{ cat.outils }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="theme" class="col-sm-2 control-label">Thème</label>
+        <div class="col-sm-10">
+            <input type="text" id="theme" name="theme" class="form-control" placeholder="Thème du jeu..."/>
+        </div>
+    </div>
+    <div class="form-group row">
+	    <label for="auteur" class="col-sm-2 control-label">Auteur</label>
+        <div class="col-sm-10">
+            <input type="text" id="auteur" name="auteur" class="form-control" placeholder="Auteur du jeu..."/>
+        </div>
+    </div>
+    <div class="form-group row">
+	    <label for="editeur" class="col-sm-2 control-label">Editeur</label>
+        <div class="col-sm-10">
+            <input type="text" id="editeur" name="editeur" class="form-control" placeholder="Editeur du jeu..."/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="nbjoueursmin" class="col-md-2 control-label">De... </label>
+        <div class="col-md-3">
+            <input type="number" id="nbjoueursmin" name ="nbjoueursmin" placeholder="Nb de joueurs minimum" class="form-control">
+        </div>
+        <label for="nbjoueursmax" class="col-md-2 control-label">... jusqu'à ...</label>
+        <div class="col-md-3">
+            <input type="number" id="nbjoueursmax" name ="nbjoueursmax" placeholder="Nb de joueurs maximum" class="form-control">
+        </div>
+        <div class="col-md-2">
+            ... joueurs.
+        </div>
+    </div>
+    <input type="submit" name="valider_recher" value="Rechercher"/>
+   </fieldset>
+   </form>
+{% endblock %}

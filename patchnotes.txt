@@ -1,0 +1,52 @@
+To do :
+- Gestion du profil par l'utilisateur
+- Page d'accueil du site avec différents modules (derniers jeux ajoutés, meilleurs jeux, etc)
+- Ajout d'un dashboard d'administration
+- Système de notifications
+
+V 0.3 ---------------------------------------------------------------------------
+Base de données :
+- Création d'une table PROJET_JEUXMODIF identique à la table PROJET_JEUX. Son but est de stocker les informations de modification d'un jeu en attente
+de la validation d'un administrateur. Cette nouvelle table ne possède pas de contrainte d'intégrité et n'a pas d'id en AI.
+
+Application :
+- Administrateur: demandes de modification des jeux (créer une table PROJET_JEUXMODIF + flag modif dans PROJET_JEUX) (j)
+- Administrateur: gestion des catégories et des utilisateurs (tableau listant les catégories et utilisateurs + colonne supplémentaire avec des boutons
+d'action : supprimer, modifier) (j)
+- Administrateur: gestion des commentaires (ajouter des boutons sur jeux_description dans la catégorie commentaires si isAdmin == 1) (j)
+
+V 0.2 ---------------------------------------------------------------------------
+Base de données : 
+- NOTECOM (date) et TITRECOM (varchar 128) ont été ajouté à la table PROJET_COMMENTAIRE
+- AJOUT(int), MODIF(int) et SUPPR(int) ont été ajouté à la table PROJET_JEUX
+
+Application :
+- Ajout du charset UTF-8 dans la chaîne de PDO
+- Désactivation des messages de warnings ressortant lorsqu'un $_POST est envoyé avec un champs non initialisé 
+(ajout de @ devant les fonctions d'appel correspondantes)
+_ Amélioration du système de commentaires
+_ Ajout d'un formulaire pour évaluer un jeu, qui n'apparaît que si l'utilisateur est un membre connecté n'ayant pas encore commenté ledit jeu (i)
+- Ajout d'icônes sur les items du menu principal
+- Ajout d'une interface d'administrateur avec des options permettant de gérer les demandes d'ajout et de suppression des jeux (j). 
+- Amélioration du footer
+
+V 0.1 ---------------------------------------------------------------------------
+Base de données : 
+- IDUSER, IDCATEGORIE et IDJEU ont été passé en auto_increment
+
+Application :
+- Ajout d'une fonctionnalité permettant aux invités de s'inscrire sur le site (e)
+- Ajout d'une page permettant de voir ses propres jeux ajoutés (g)
+- Ajout de l'ajout de jeu pour les utilisateurs identifiés (h)
+- Ajout d'un moteur de recherche (f)
+
+V 0.0 ---------------------------------------------------------------------------
+Base de données : 
+- Ajout des champs NOMJEU (varchar 128), MATERIEL(varchar 500), DESCRIPTION (varchar 2000) et DATEAJOUT (date) dans la table PROJET_JEUX
+- Le champ MAIL a été renommé en EMAIL dans la table PROJET_UTILISATEUR
+
+Application :
+- Ajout de connexion et déconnexion utilisateur (d)
+- Ajout de liste des jeux cliquables (a)
+- Ajout des détails d'un jeu lorsque sélectionné dans la précédente liste (b)
+- Ajout d'une page de profil publique pour chaque utilisateur (c) 

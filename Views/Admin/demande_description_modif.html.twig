@@ -1,0 +1,56 @@
+{% extends "index.html.twig" %}
+
+{% block section %}
+<div class="row">
+    <table class="table table-bordered table-striped table-sm">
+            <tr><th>Catégorie</th><th>Jeu original</th><th>Modifications</th></tr>
+
+            <tr><th>Nom</th><td>{{jeuOriginal.nomjeu}}</td>
+            <td{% if jeuOriginal.nomjeu != jeuModife.nomjeu %} style="color:red;"{% endif %}>
+                {{jeuModifie.nomjeu}}</td></tr>
+                
+            <tr><th>Temps de jeu</th><td>{{jeuOriginal.dureepartie}}</td>
+            <td{% if jeuOriginal.dureepartie != jeuModife.dureepartie %} style="color:red;"{% endif %}>
+                {{jeuModifie.dureepartie}}</td></tr>
+
+            <tr><th>Nombre de joueurs</th><td>Entre {{jeuOriginal.nbjoueursmin}} et {{jeuOriginal.nbjoueursmax}} joueurs</td>
+            <td{% if (jeuOriginal.nbjoueursmin != jeuModife.nbjoueursmin) or (jeuOriginal.nbjoueursmax != jeuModife.nbjoueursmax) %} style="color:red;"{% endif %}>
+                Entre {{jeuModifie.nbjoueursmin}} et {{jeuModifie.nbjoueursmax}} joueurs</td></tr>
+
+            <tr><th>Règles du jeu</th><td>{{jeuOriginal.description}}</td>
+            <td{% if jeuOriginal.description != jeuModife.description %} style="color:red;"{% endif %}>
+                {{jeuModifie.description}}</td></tr>
+
+            <tr><th>Matériel nécessaire</th><td>{{jeuOriginal.materiel}}</td>
+            <td{% if jeuOriginal.materiel != jeuModife.materiel %} style="color:red;"{% endif %}>
+                {{jeuModifie.materiel}}</td></tr>
+
+            <tr><th>Auteur</th><td>{{jeuOriginal.auteur}}</td>
+            <td{% if jeuOriginal.auteur != jeuModife.auteur %} style="color:red;"{% endif %}>
+                {{jeuModifie.auteur}}</td></tr>
+
+            <tr><th>Editeur</th><td>{{jeuOriginal.editeur}}</td>
+            <td{% if jeuOriginal.editeur != jeuModife.editeur %} style="color:red;"{% endif %}>
+                {{jeuModifie.editeur}}</td></tr>
+
+            <tr><th>Illustrateur</th><td>{{jeuOriginal.illustrateur}}</td>
+            <td{% if jeuOriginal.illustrateur != jeuModife.illustrateur %} style="color:red;"{% endif %}>
+                {{jeuModifie.illustrateur}}</td></tr>
+            
+            <tr><th>Catégorie</th><td>{{jeuOriginal.categorie}}</td>
+
+            <tr><th>Date d'ajout sur le site</th><td>{{jeuOriginal.dateajout}}</td></tr>
+
+            <tr><th>Ajouté par</th><td><a href="?action=profil&user={{jeuOriginal.iduser}}">{{jeuOriginal.pseudo}}</a></td></tr>
+    </table>
+</div>
+
+<form method="post" action="index.php">
+    <div class="form-group row">
+        <input  type="hidden" id="idjeu" name="idjeu" value="{{jeuOriginal.idjeu}}"/>
+        <div class="col-sm-6"><input type="submit" class="btn btn-danger btn-block" name="valider_modif_admin" value="Valider modification"/></div>
+        <div class="col-sm-6"><input type="submit" class="btn btn-success btn-block" name="refuser_modif_admin" value="Garder l'original"/></div>
+    </div>
+</form>
+
+{% endblock %}

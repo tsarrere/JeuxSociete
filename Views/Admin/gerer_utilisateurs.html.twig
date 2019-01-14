@@ -1,0 +1,17 @@
+{% extends "index.html.twig" %}
+
+{% block section %}
+<table class="table table-hover table-condensed listecategories"><thead>
+<tr><th>Id utilisateur</th><th>Pseudo</th><th>Action</th></tr>
+</thead><tbody>
+{% for user in users %}
+    <tr><td>{{user.iduser}}</td>
+        <td>{{user.pseudo}}</td>
+        <td><form method="post" action="index.php"></form><input type="hidden" id="idcategorie" name="idcategorie" value="{{user.iduser}}"/>
+            <input type="submit" class="btn btn-danger btn-sm" name="supprimer_user" value="Supprimer"/>
+        </form></td>
+    </tr>
+{% endfor %}
+</tbody></table>
+
+{% endblock %}

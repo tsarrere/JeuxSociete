@@ -1,0 +1,26 @@
+{% extends "index.html.twig" %}
+
+{% block section %}
+<div class="row">
+    <div class="col-lg-6">
+        <table class="table table-bordered table-striped table-sm">
+            <tr><th>Pseudo</th><td>{{membre.pseudo}}</td></tr>
+            <tr><th>Nom</th><td>{{membre.nom}}</td></tr>
+            <tr><th>Prénom</th><td>{{membre.prenom}}</td></tr>
+            <tr><th>Sexe</th><td>{{membre.sexe}}</td></tr>
+            <tr><th>Ville</th><td>{{membre.ville}}</td></tr>
+            <tr><th>Date de naissance</th><td>{{membre.datenaissance}}</td></tr>
+            <tr><th>Date d'inscription</th><td>{{membre.dateinscription}}</td></tr>
+        </table>
+    </div>
+</div>
+
+<table class="table table-condensed"><thead></thead>
+<tr><th>Jeu(x) ajouté(s)</th><th>Date d'ajout</th></tr>
+</thead><tbody>
+{% for jeu in jeux %}
+    <tr><td><a href="?action=description&idjeu={{jeu.idjeu}}">{{jeu.nomjeu}}</a></td><td>{{jeu.dateajout}}</td></tr>
+{% endfor %}
+</tbody></table>
+
+{% endblock %}

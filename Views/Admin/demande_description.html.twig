@@ -1,0 +1,38 @@
+{% extends "index.html.twig" %}
+
+{% block section %}
+<div class="row">
+    <table class="table table-bordered table-striped table-sm">
+            <tr><th>Nom</th><td>{{jeu.nomjeu}}</td>
+            <tr><th>Temps de jeu</th><td>{{jeu.dureepartie}}</td></tr>
+            <tr><th>Nombre de joueurs</th><td>Entre {{jeu.nbjoueursmin}} et {{jeu.nbjoueursmax}} joueurs</td></tr>
+            <tr><th>Règles du jeu</th><td>{{jeu.description}}</td></tr>
+            <tr><th>Matériel nécessaire</th><td>{{jeu.materiel}}</td></tr>
+            <tr><th>Auteur</th><td>{{jeu.auteur}}</td></tr>
+            <tr><th>Editeur</th><td>{{jeu.editeur}}</td></tr>
+            <tr><th>Illustrateur</th><td>{{jeu.illustrateur}}</td></tr>
+            <tr><th>Date d'ajout sur le site</th><td>{{jeu.dateajout}}</td></tr>
+            <tr><th>Catégorie</th><td>{{jeu.categorie}}</td></tr>
+            <tr><th>Ajouté par</th><td><a href="?action=profil&user={{jeu.iduser}}">{{jeu.pseudo}}</a></td></tr>
+    </table>
+</div>
+
+{% if action == "ajouter" %}
+<form method="post" action="index.php">
+    <div class="form-group row">
+        <input  type="hidden" id="idjeu" name="idjeu" value="{{jeu.idjeu}}"/>
+        <div class="col-sm-6"><input type="submit" class="btn btn-success btn-block" name="valider_ajout_admin" value="Ajouter"/></div>
+        <div class="col-sm-6"><input type="submit" class="btn btn-danger btn-block" name="supprimer_ajout_admin" value="Supprimer"/></div>
+    </div>
+</form>
+{% elseif action == "supprimer" %}
+<form method="post" action="index.php">
+    <div class="form-group row">
+        <input  type="hidden" id="idjeu" name="idjeu" value="{{jeu.idjeu}}"/>
+        <div class="col-sm-6"><input type="submit" class="btn btn-danger btn-block" name="valider_suppr_admin" value="Valider suppression"/></div>
+        <div class="col-sm-6"><input type="submit" class="btn btn-success btn-block" name="refuser_suppr_admin" value="Ne pas supprimer"/></div>
+    </div>
+</form>
+{% endif %}
+
+{% endblock %}

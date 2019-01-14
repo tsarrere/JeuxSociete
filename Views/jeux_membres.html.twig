@@ -1,0 +1,13 @@
+{% extends "index.html.twig" %}
+
+{% block section %}
+
+<table class="table table-condensed"><thead></thead>
+<tr><th>Jeu(x) ajouté(s)</th><th>Date d'ajout</th></tr>
+</thead><tbody>
+{% for jeu in jeux %}
+    <tr><td><a href="?action=description&idjeu={{jeu.idjeu}}">{{jeu.nomjeu}}</a></td><td>{{jeu.dateajout}}</td></tr>
+{% endfor %}
+</tbody></table>
+
+{% endblock %}

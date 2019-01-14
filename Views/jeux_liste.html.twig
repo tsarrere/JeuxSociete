@@ -1,0 +1,12 @@
+{% extends "index.html.twig" %}
+
+{% block section %}
+<table class="table table-hover table-condensed listejeux"><thead>
+<tr><th>Nom</th><th>Catégorie</th><th>Thème</th><th>Auteur</th><th>Editeur</th><th>Temps de jeu</th><th>Nb de joueurs min</th><th>Nb de joueurs max</th></tr>
+</thead><tbody>
+{% for jeu in jeux %}
+      <tr onclick="window.location='?action=description&idjeu={{jeu.idJeu}}';"><td>{{jeu.nomJeu}}</td><td>{{jeu.categorie}}</td><td>{{jeu.theme}}</td><td>{{jeu.auteur}}</td><td>{{jeu.editeur}}</td><td>{{jeu.dureePartie}}</td><td>{{jeu.nbJoueursMin}}</td><td>{{jeu.nbJoueursMax}}</td></tr>
+{% endfor %}
+</tbody></table>
+{% endblock %}
+

@@ -1,0 +1,27 @@
+{% extends "index.html.twig" %}
+
+{% block section %}
+<table class="table table-hover table-condensed listecategories"><thead>
+<tr><th>Id catégorie</th><th>Outils</th><th>Action</th></tr>
+</thead><tbody>
+{% for categorie in categories %}
+    <tr><td>{{categorie.idcategorie}}</td>
+        <td><form method="post" action="index.php"><input  type="hidden" id="idcategorie" name="idcategorie" value="{{categorie.idcategorie}}"/>
+            <input type="text" id="outils" name="outils" value="{{categorie.outils}}" class="form-control" autofocus></td>
+        <td><input type="submit" class="btn btn-outline-danger btn-sm" name="modifier_categorie" value="Modifier"/>
+            <input type="submit" class="btn btn-danger btn-sm" name="supprimer_categorie" value="Supprimer"/>
+        </form></td></tr>
+{% endfor %}
+</tbody></table>
+<form method="post" action="index.php">
+    <div class="form-group">
+        <label for="outils" class="col-sm-3 control-label">Outils</label>
+        <div class="col-sm-9">
+            <input type="text" id="outils" name="outils" placeholder="Outils utilisés..." class="form-control" autofocus>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <input type="submit" class="btn btn-primary btn-block" name="ajouter_categorie" value="Ajouter"/>
+    </div>
+</form>
+{% endblock %}

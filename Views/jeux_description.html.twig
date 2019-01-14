@@ -1,0 +1,164 @@
+{% extends "index.html.twig" %}
+
+{% block section %}
+<div class="row">
+    <table class="table table-bordered table-striped table-sm">
+            <tr><th>Nom</th><td>{{jeu.nomjeu}}</td></tr>
+            <tr><th>Temps de jeu</th><td>{{jeu.dureepartie}}</td></tr>
+            <tr><th>Nombre de joueurs</th><td>Entre {{jeu.nbjoueursmin}} et {{jeu.nbjoueursmax}} joueurs</td></tr>
+            <tr><th>Règles du jeu</th><td>{{jeu.description}}</td></tr>
+            <tr><th>Matériel nécessaire</th><td>{{jeu.materiel}}</td></tr>
+            <tr><th>Auteur</th><td>{{jeu.auteur}}</td></tr>
+            <tr><th>Editeur</th><td>{{jeu.editeur}}</td></tr>
+            <tr><th>Illustrateur</th><td>{{jeu.illustrateur}}</td></tr>
+            <tr><th>Date d'ajout sur le site</th><td>{{jeu.dateajout}}</td></tr>
+            <tr><th>Catégorie</th><td>{{jeu.categorie}}</td></tr>
+            <tr><th>Ajouté par</th><td><a href="?action=profil&user={{jeu.iduser}}">{{jeu.pseudo}}</a></td></tr>
+    </table>
+</div>
+
+<div class="container">		
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="rating-block">
+                <h4>Note moyenne des utilisateurs</h4>
+                <h2 class="bold padding-bottom-7">{{notemoy}} <small>/ 5</small></h2>
+
+                {% if notemoy|round == 5 %}
+                    {% for i in 1 .. notemoy|round %}
+                    <button type="button" class="btn btn-warning btn-sm no-click" aria-label="Left Align">
+                        <span class="fas fa-star"></span>
+                    </button>  
+                    {% endfor %}
+                {% elseif notemoy|round == 0 %}
+                    {% for i in 1 .. (5 - notemoy|round) %}
+                    <button type="button" class="btn btn-default btn-grey btn-sm no-click" aria-label="Left Align">
+                        <span class="far fa-star"></span>
+                    </button>  
+                    {% endfor %}
+                {% else %}
+                    {% for i in 1 .. notemoy|round %}
+                    <button type="button" class="btn btn-warning btn-sm no-click" aria-label="Left Align">
+                        <span class="fas fa-star"></span>
+                    </button>  
+                    {% endfor %}
+
+                    {% for i in 1 .. (5 - notemoy|round) %}
+                    <button type="button" class="btn btn-default btn-grey btn-sm no-click" aria-label="Left Align">
+                        <span class="far fa-star"></span>
+                    </button>
+                    {% endfor %}
+                {% endif %}
+
+            </div>
+        </div>
+    </div>			
+</div> <!-- /container -->
+
+<!-- AVIS DES UTILISATEURS-->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+        <hr/>
+            <div class="review-block">
+                {% for com in coms %}
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                        <div class="review-block-name"><a href="?action=profil&user={{jeu.iduser}}">{{com.pseudo}}</a></div>
+                        <div class="review-block-date">{{com.datecom|date("d/m/Y")}}<br/>
+                        {% set difference = date(com.datecom).diff(date("now")) %}
+                        {% set leftDays = difference.days %}
+                        {% if leftDays == 1 %}
+                          Hier
+                        {% else %}
+                        Il y a {{ leftDays }} jours
+                        {% endif %}</div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="review-block-rate">
+                            {% if com.note == 5 %}
+                                {% for i in 1 .. com.note %}
+                                <button type="button" class="btn btn-warning btn-sm no-click" aria-label="Left Align">
+                                    <span class="fas fa-star"></span>
+                                </button>  
+                                {% endfor %}
+                            {% else %}
+                                {% for i in 1 .. com.note %}
+                                <button type="button" class="btn btn-warning btn-sm no-click" aria-label="Left Align">
+                                    <span class="fas fa-star"></span>
+                                </button>  
+                                {% endfor %}
+
+                                {% for i in 1 .. (5 - com.note) %}
+                                <button type="button" class="btn btn-default btn-grey btn-sm no-click" aria-label="Left Align">
+                                    <span class="far fa-star"></span>
+                                </button>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="review-block-title">{{com.titrecom}}</div>
+                        <div class="review-block-description">{{com.contenu}}</div>
+                    </div>
+                </div>
+                {% if admin %}
+                <form method="post" action="index.php">
+                    <div class="form-group row">
+                        <input  type="hidden" id="idjeu" name="iduser" value="{{com.iduser}}"/>
+                        <input  type="hidden" id="idjeu" name="idjeu" value="{{com.idjeu}}"/>
+                        <div class="col-sm-6"><input type="submit" class="btn btn-danger btn-sm" name="supprimer_com_admin" value="Supprimer"/></div>
+                    </div>
+                </form>
+                {% endif %}
+                <hr/>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% set flag = 1 %}
+{% for com in coms %} <!-- s'il n'existe pas un commentaire posté par l'utilisateur connecté -->
+    {% if com.iduser == iduser %}
+        {% set flag = 0 %}
+    {% endif %}
+{% endfor %} 
+
+{% if flag and acces == "oui" %}
+    <form method="post" action="index.php" class="well">
+        <fieldset class="form-group">
+         <legend>Evaluer le jeu</legend>
+         <div class="form-group row">
+                <label for="note" class="col-sm-2 control-label">Note (0 à 5)</label>
+                <div class="col-sm-10">
+                    <input type="number" name="note" min="0" max="5" placeholder="0" autofocus required>
+                </div>
+            </div>
+         <div class="form-group row">
+            <label for="titrecom" class="col-sm-2 control-label">Titre</label>
+            <div class="col-sm-10">
+                <input type="text" id="titrecom" name ="titrecom" placeholder="Titre du commentaire..." class="form-control" autofocus required>
+            </div>
+        </div>
+         <div class="form-group row">
+             <label for="contenu" class="col-sm-2 control-label">Commentaire</label>
+             <div class="col-sm-10">
+                 <textarea class="form-control" rows="6" placeholder="Qu'est-ce que vous avez aimé ou pas aimé ?" name="contenu" id="contenu" autofocus required></textarea>
+             </div>
+         </div>
+         <div class="form-group row">
+         <input  type="hidden" id="iduser" name="iduser" value="{{ iduser }}"/> 
+         <input  type="hidden" id="idjeu" name="idjeu" value="{{ jeu.idjeu }}"/>
+         <input  type="hidden" id="datecom" name="datecom" value="{{ "now"|date("Y-m-d") }}"/>
+         <input type="submit" class="btn btn-primary btn-block" name="valider_com" value="Ajouter un commentaire"/>
+        </fieldset>
+     </form>
+{% else %}
+    {% if acces == "oui" %}
+        <p>Vous avez déjà commenté !</p>
+    {% else %}
+        <p>Vous devez être inscris pour pouvoir commenter.</p>
+    {% endif %}
+{% endif %}
+
+{% endblock %}
